@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Lambda Function</title>
+</head>
+<body>
+    <h1>Create AWS Lambda Function</h1>
+    <form id="lambdaForm">
+        <label for="functionName">Lambda Function Name:</label>
+        <input type="text" id="functionName" name="functionName" required>
+        <button type="submit">Create Function</button>
+    </form>
+
+    <script>
+        document.getElementById('lambdaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const functionName = document.getElementById('functionName').value;
+           
+            fetch('/create-lambda', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ functionName })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
